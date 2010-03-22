@@ -7,6 +7,7 @@
  * ============================================================================*/
 
 #include <string.h>
+#include <cmath>
 #include "value.h"
 
 using namespace Thor::VM;
@@ -39,7 +40,15 @@ Value &Value::operator=(const Value &val){
 }
 
 void Value::setBit(unsigned int pos, char bit){
-	// TODO
+	// TODO test it
+	int byte = floor(pos / 8); 
+	int bits = pos % 8;
+
+	if(bit != 0){
+		_value[byte] = _value[byte] | ( 1 << bits);
+	}else{
+		_value[byte] = ~((~_value[byte]) | ( 1 << bits));
+	}
 }
 
 unsigned int Value::getSize() const{
