@@ -74,7 +74,7 @@ class Tokenizer:
 				else:
 					raise ValueError("non", self.stream.tell())
 			char = self.stream.read(1)
-		raise EofError()
+		return None
 
 	def	isWhitespace(self, char):
 		return char in " \n\t"
@@ -107,7 +107,3 @@ class ValueError(Exception):
 	def __init__(self, type, pos):
 		self.type = type
 		self.position = pos
-
-class EofError(Exception):
-	def __init__(self):
-		pass
