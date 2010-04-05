@@ -11,7 +11,8 @@
  * ============================================================================*/
 
 #include <iostream>
-#include "register.h"
+#include "processor.h"
+#include "interface.h"
 
 using namespace Thor::VM;
 
@@ -20,10 +21,19 @@ using namespace Thor::VM;
  * ============================================================================*/
 
 int main(int argc, const char *argv[]){
-	std::cout << "I am the god of thunder!" << std::endl;
+	Processor *proc = new Processor();
+	Interface interface(*proc);
 
-	Register r;
-	r.setValue(Value());
+	getch();
 
+	Value v;
+	for(int i = 0; i < THOR_BITS; i++){
+		v.setBit(i, 1);
+		proc->setRegister(Processor::RT_AX, v);
+	}
+
+	interface.refreshUI();
+
+	getch();
 	return 0;
 }

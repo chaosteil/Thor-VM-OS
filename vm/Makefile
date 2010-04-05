@@ -6,8 +6,8 @@ LD = g++
 STRIP = strip
 CPP = g++
 INCLUDES = 
-CFLAGS = -Wall -O2 -c -g $(INCLUDES)
-LDFLAGS = 
+CFLAGS = -Wall -c -g $(INCLUDES)
+LDFLAGS = -lncurses
 PRGOUT = thorvm
 
 # All Objects

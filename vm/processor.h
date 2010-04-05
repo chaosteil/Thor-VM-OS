@@ -1,5 +1,5 @@
-#ifndef _THOR_VM_PROCESSOR_
-#define _THOR_VM_PROCESSOR_
+#ifndef _THOR_VM_PROCESSOR_H_
+#define _THOR_VM_PROCESSOR_H_
 
 #include "register.h"
 #include "value.h"
