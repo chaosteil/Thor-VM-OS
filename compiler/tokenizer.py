@@ -88,6 +88,9 @@ class Tokenizer:
 	def isString(self, char):
 		return char.lower() in "qwertyuiopasdfghjklzxcvbnm0123456789._"
 
+	def isSymbol(self, char):
+		return char in ",[]:+"
+
 class Token:
 	def __init__(self, type, value):
 		self.type = type
