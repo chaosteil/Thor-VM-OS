@@ -10,11 +10,8 @@ CFLAGS = -Wall -O2 -c -g $(INCLUDES)
 LDFLAGS = 
 PRGOUT = thorvm
 
-# Entry Point
-SUBDIRS = .
-
 # All Objects
-SRC += $(wildcard $(addsuffix /*.cpp, $(SUBDIRS)))
+SRC += $(wildcard *.cpp)
 OBJECTS = $(SRC:.cpp=.o)
 
 .cpp.o:

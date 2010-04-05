@@ -20,9 +20,10 @@ using namespace Thor::VM;
  * P U B L I C   M E T H O D S
  * ============================================================================*/
 
-Value::Value(unsigned int bytes)
+Value::Value(int def, unsigned int bytes)
 	: _bytes(bytes), _value(new char[_bytes])
 {
+	setInteger(def);
 }
 
 Value::~Value(){
@@ -49,6 +50,10 @@ void Value::setBit(unsigned int pos, char bit){
 	}else{
 		_value[byte] = ~((~_value[byte]) | ( 1 << bits));
 	}
+}
+
+void Value::setInteger(int value){
+	*_value = value;
 }
 
 unsigned int Value::getSize() const{
