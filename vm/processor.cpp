@@ -60,3 +60,11 @@ void Processor::sub(OpType op, RegType left, RegType right, const Value &vleft, 
 		setRegister(left, Value(x));
 	}
 }
+
+void Processor::inc(RegType reg){
+	setRegister(reg, getRegister(reg).getInteger() + 1);
+}
+
+void Processor::dec(RegType reg){
+	setRegister(reg, getRegister(reg).getInteger() - 1);
+}

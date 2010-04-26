@@ -31,6 +31,9 @@ namespace VM{
 			void add(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 			void sub(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 
+			void inc(RegType reg);
+			void dec(RegType reg);
+
 		private:
 			Register _regs[19];
 	};
