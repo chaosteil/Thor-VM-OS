@@ -25,6 +25,8 @@ namespace VM{
 			char getBit(unsigned int pos) const; /**< Returns the value of the bit at the specified position, starting from the lowest one. */
 			unsigned int getInteger() const;
 
+			const char *getRepresentation() const;
+
 		private:
 			char _convertFromAscii(char x);
 

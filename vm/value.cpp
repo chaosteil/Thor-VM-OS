@@ -78,6 +78,10 @@ unsigned int Value::getInteger() const{
 	return x;
 }
 
+const char *Value::getRepresentation() const{
+	return _value;
+}
+
 /* ============================================================================
  * P R I V A T E   M E T H O D S
  * ============================================================================*/
