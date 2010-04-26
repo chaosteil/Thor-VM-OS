@@ -1,6 +1,8 @@
 #ifndef _THOR_VM_VALUE_H_
 #define _THOR_VM_VALUE_H_
 
+#include <string>
+
 namespace Thor{
 namespace VM{
 
@@ -12,6 +14,8 @@ namespace VM{
 	class Value{
 		public:
 			Value(int def = 0);
+			// Ascii values 0A0B0C0D0E0F101A (16 bytes)
+			Value(const std::string &val);
 			virtual ~Value();
 
 			void setBit(unsigned int pos, char bit);
@@ -22,6 +26,8 @@ namespace VM{
 			unsigned int getInteger() const;
 
 		private:
+			char _convertFromAscii(char x);
+
 			char _value[THOR_BYTES];
 	};
 

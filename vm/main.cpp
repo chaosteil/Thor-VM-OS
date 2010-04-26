@@ -32,6 +32,9 @@ int main(int argc, const char *argv[]){
 		proc->setRegister(Processor::RT_AX, v);
 	}
 
+	Value x("0a0b0c0d");
+	proc->setRegister(Processor::RT_BX, x);
+
 	interface.refreshUI();
 
 	getch();
