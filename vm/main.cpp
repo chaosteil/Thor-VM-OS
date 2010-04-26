@@ -47,8 +47,13 @@ int main(int argc, const char *argv[]){
 
 	Memory mem(256, " !\"#");
 	std::cout << std::hex << mem.getAddress(Value(0)).getInteger() << std::endl;
-	mem.setAddress(Value(4),Value(123456));
+	mem.setAddress(Value(4),Value(0x123456));
 	std::cout << mem.getAddress(Value(4)).getInteger() << std::endl;
+	char *temp = new char[5];
+	Value val = Value(0x20212223);
+	memcpy(temp, val.getRepresentation(), 4);
+	temp[5] = 0;
+	std::cout << temp << std::endl;
 
 	getch();
 	return 0;
