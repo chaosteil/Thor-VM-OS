@@ -31,10 +31,19 @@ namespace VM{
 			void add(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 			void sub(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 
+			void andOp(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+			void orOp(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+			void xorOp(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+
+			void mov(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+
 			void inc(RegType reg);
 			void dec(RegType reg);
 
 		private:
+			void _opBlockIn(Value &x, Value &y, OpType op, RegType left, RegType right, const Value &vleft, const Value &vright);
+			void _opBlockOut(const Value &z, OpType op, RegType left, RegType right, const Value &vleft, const Value &vright);
+
 			Register _regs[19];
 	};
 
