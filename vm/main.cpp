@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include "processor.h"
+#include "memory.h"
 #include "interface.h"
 
 using namespace Thor::VM;
@@ -21,7 +22,7 @@ using namespace Thor::VM;
  * ============================================================================*/
 
 int main(int argc, const char *argv[]){
-	Processor *proc = new Processor();
+	/*Processor *proc = new Processor();
 	Interface interface(*proc);
 
 	getch();
@@ -42,6 +43,12 @@ int main(int argc, const char *argv[]){
 	proc->sub(Processor::OT_Registers, Processor::RT_BX, Processor::RT_CX);
 
 	interface.refreshUI();
+	interface.refreshUI();*/
+
+	Memory mem(256, " !\"#");
+	std::cout << std::hex << mem.getAddress(Value(0)).getInteger() << std::endl;
+	mem.setAddress(Value(4),Value(123456));
+	std::cout << mem.getAddress(Value(4)).getInteger() << std::endl;
 
 	getch();
 	return 0;

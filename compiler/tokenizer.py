@@ -2,6 +2,9 @@ class Tokenizer:
 	def __init__(self, file):
 		self.stream = file
 
+	def getTell(self):
+		return self.stream.tell()
+
 	def getNextToken(self):
 		state = 'n'
 		token = None
@@ -17,7 +20,7 @@ class Tokenizer:
 					if not self.isString(char):
 						raise ValueError("str", self.stream.tell())
 					else:
-						token.value += char
+						token.value += char.upper()
 				else:
 					return token
 			elif state == 'x':   #hexadecimal
@@ -70,7 +73,7 @@ class Tokenizer:
 					return token
 				elif isString(char):
 					state = 's'
-					token = Token('s', char)
+					token = Token('s', char.upper())
 				else:
 					raise ValueError("non", self.stream.tell())
 			char = self.stream.read(1)
@@ -86,10 +89,10 @@ class Tokenizer:
 		return char in "0123456789"
 
 	def isString(self, char):
-		return char.lower() in "qwertyuiopasdfghjklzxcvbnm0123456789._"
+		return char.lower() in "qwertyuiopasdfghjklzxcvbnm0123456789_"
 
 	def isSymbol(self, char):
-		return char in ",[]:+"
+		return char in ".,[]:+-"
 
 class Token:
 	def __init__(self, type, value):
