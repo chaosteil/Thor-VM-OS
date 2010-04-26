@@ -26,7 +26,7 @@ Value::Value(int def){
 }
 
 Value::Value(const std::string &val){
-	for(int i = THOR_BYTES-1; i >= 0; i--){
+	for(int i = 0; i < THOR_BYTES; i++){
 		int low = _convertFromAscii(val[i*2 +1]),
 			high = _convertFromAscii(val[i*2]);
 
@@ -50,7 +50,7 @@ void Value::setBit(unsigned int pos, char bit){
 
 void Value::setInteger(unsigned int value){
 	for(int i = 0; i < THOR_BYTES; i++){
-		_value[i] = value >> (i * 8);
+		_value[i] = value >> ((THOR_BYTES-1-i) * 8);
 	}
 }
 

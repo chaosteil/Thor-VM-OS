@@ -10,10 +10,16 @@ namespace VM{
 	class Processor{
 		public:
 			enum RegType{
-				RT_CS = 0, RT_DS, RT_SS, RT_FLAGS, RT_TIME,
-				RT_IP, RT_SP, RT_DI, RT_SI,
-				RT_AX, RT_BX, RT_CX, RT_DX, RT_R0, RT_R1,
-				RT_CIR, RT_COR, RT_CDR, RT_PTR
+				RT_CS = 0, RT_DS = 1, RT_SS = 2, RT_FLAGS = 3, RT_TIME = 4,
+				RT_IP = 5, RT_SP = 6, RT_DI = 7, RT_SI = 8,
+				RT_AX = 9, RT_BX = 10, RT_CX = 11, RT_DX = 12, RT_R0 = 13, RT_R1 = 14,
+				RT_CIR = 15, RT_COR = 16, RT_CDR = 17, RT_PTR = 18
+			};
+
+			enum OpType{
+				OT_Direct = 0,
+				OT_In, OT_Out,
+				OT_Registers
 			};
 
 			Processor();
@@ -21,7 +27,10 @@ namespace VM{
 
 			void setRegister(RegType type, const Value &value);
 			Value getRegister(RegType type) const;
-			
+
+			void add(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+			void sub(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+
 		private:
 			Register _regs[19];
 	};

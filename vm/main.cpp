@@ -35,6 +35,12 @@ int main(int argc, const char *argv[]){
 	Value x("0a0b0c0d");
 	proc->setRegister(Processor::RT_BX, x);
 
+	Value y(1);
+	proc->setRegister(Processor::RT_CX, y);
+
+	proc->add(Processor::OT_Registers, Processor::RT_BX, Processor::RT_CX);
+	proc->sub(Processor::OT_Registers, Processor::RT_BX, Processor::RT_CX);
+
 	interface.refreshUI();
 
 	getch();

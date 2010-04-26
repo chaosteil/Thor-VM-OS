@@ -14,8 +14,6 @@ namespace VM{
 			void setValue(const Value &value);
 			const Value &getValue() const;
 
-			void add(const Value &value);
-
 		private:
 			Value _value;
 	};
