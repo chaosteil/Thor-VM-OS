@@ -22,16 +22,14 @@ using namespace Thor::VM;
  * ============================================================================*/
 
 int main(int argc, const char *argv[]){
-	Memory mem(16*1024*1024, "\0\0\0\0+DAX00000010", 16);
+	Memory mem(16*1024*1024, "\0\0\0\0+DAX00000010-RR0AX", 24);
 	Processor *proc = new Processor(mem);
 	Interface interface(*proc);
-	proc->setRegister(Processor::RT_IP, 1);
-	proc->add(Processor::OT_Direct, Processor::RT_AX, Processor::RT_None, 0, 0xFFFFFFFF);
 
 	while(42){
 		interface.refreshUI();
-		proc->cycle();
 		getch();
+		proc->cycle();
 	}
 	
 	return 0;

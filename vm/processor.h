@@ -51,10 +51,14 @@ namespace VM{
 			void _opBlockOut(const Value &z, OpType op, RegType left, RegType right, const Value &vleft, const Value &vright);
 			OpType _getOpType(char op) const;
 
+			void _parseOp(const std::string &cmd, OpType &op, RegType &left, RegType &right, Value &vleft, Value &vright);
+			RegType _parseRT(const std::string &cmd);
+
 			Value _getCommand() const;
+			Value _getNumber() const;
 			Value _translatePage(const Value &value) const;
 			
-			bool _parseCommand(const Value &word) const;
+			bool _parseCommand(const Value &word);
 
 			Register _regs[19];
 
