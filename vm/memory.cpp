@@ -7,7 +7,6 @@
  * ============================================================================*/
 
 #include "memory.h"
-#include <iostream>
 
 using namespace Thor::VM;
 
@@ -28,7 +27,10 @@ Memory::~Memory(){
 }
 
 const Value Memory::getAddress(const Value &address) const{
-	return Value(*(int*)(void*)(_memory + address.getInteger()));
+	char stringRep[5];
+	memset(stringRep, '\0', 5);
+	memcpy(stringRep, _memory + address.getInteger(), 4);
+	return Value(stringRep, true);
 }
 
 void Memory::setAddress(const Value &address, const Value &value){
