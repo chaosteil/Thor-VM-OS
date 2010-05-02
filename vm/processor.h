@@ -3,6 +3,7 @@
 
 #include "register.h"
 #include "value.h"
+#include "memory.h"
 
 namespace Thor{
 namespace VM{
@@ -13,17 +14,20 @@ namespace VM{
 				RT_CS = 0, RT_DS = 1, RT_SS = 2, RT_FLAGS = 3, RT_TIME = 4,
 				RT_IP = 5, RT_SP = 6, RT_DI = 7, RT_SI = 8,
 				RT_AX = 9, RT_BX = 10, RT_CX = 11, RT_DX = 12, RT_R0 = 13, RT_R1 = 14,
-				RT_CIR = 15, RT_COR = 16, RT_CDR = 17, RT_PTR = 18
+				RT_CIR = 15, RT_COR = 16, RT_CDR = 17, RT_PTR = 18, RT_None
 			};
 
 			enum OpType{
 				OT_Direct = 0,
 				OT_In, OT_Out,
-				OT_Registers
+				OT_Registers,
+				OT_None
 			};
 
-			Processor();
+			Processor(Memory &memory);
 			virtual ~Processor();
+
+			void cycle();
 
 			void setRegister(RegType type, const Value &value);
 			Value getRegister(RegType type) const;
@@ -45,8 +49,16 @@ namespace VM{
 		private:
 			void _opBlockIn(Value &x, Value &y, OpType op, RegType left, RegType right, const Value &vleft, const Value &vright);
 			void _opBlockOut(const Value &z, OpType op, RegType left, RegType right, const Value &vleft, const Value &vright);
+			OpType _getOpType(char op) const;
+
+			Value _getCommand() const;
+			Value _translatePage(const Value &value) const;
+			
+			bool _parseCommand(const Value &word) const;
 
 			Register _regs[19];
+
+			Memory &_memory;
 	};
 
 }

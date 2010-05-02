@@ -6,6 +6,7 @@
  * I N C L U D E S
  * ============================================================================*/
 
+#include <sstream>
 #include "interface.h"
 
 using namespace Thor::VM;
@@ -20,7 +21,7 @@ using namespace Thor::VM;
 
 Interface::Interface(Processor &processor)
 	: _processor(processor),
-	  _reg_win(NULL)
+	  _reg_win(NULL), _display_win(NULL)
 {
 	initscr();
 	cbreak();
@@ -28,6 +29,7 @@ Interface::Interface(Processor &processor)
 	refresh();
 
 	_reg_win = _createWindow("Registers", 16, 24, 0, 0);
+	_display_win = _createWindow("Display", 80, 24, 16, 0);
 
 	refreshUI();
 }
@@ -44,25 +46,29 @@ void Interface::refreshUI(){
  * P R I V A T E   M E T H O D S
  * ============================================================================*/
 
-WINDOW *Interface::_createWindow(const char *title, int width, int height, int posx, int posy) const{
+WINDOW *Interface::_createWindow(const std::string &title, int width, int height, int posx, int posy) const{
 	WINDOW *win;
 
 	win = newwin(height, width, posy, posx);
 	box(win, 0 , 0);
 	wrefresh(win);
 
-	mvwprintw(win, 0, 1, title);
+	_setTitle(win, title);
 
 	return win;
 }
 
-void Interface::_deleteWindow(WINDOW *win){
+void Interface::_setTitle(WINDOW *win, const std::string &title) const{
+	mvwprintw(win, 0, 1, title.c_str());
+}
+
+void Interface::_deleteWindow(WINDOW *win) const{
 	wborder(win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
 	wrefresh(win);
 	delwin(win);
 }
 
-void Interface::_refreshRegisterWindow(){
+void Interface::_refreshRegisterWindow() const{
 	mvwprintw(_reg_win, 1, 1, "CS: 0x%08X", _processor.getRegister(Processor::RT_CS).getInteger());
 	mvwprintw(_reg_win, 2, 1, "DS: 0x%08X", _processor.getRegister(Processor::RT_DS).getInteger());
 	mvwprintw(_reg_win, 3, 1, "SS: 0x%08X", _processor.getRegister(Processor::RT_SS).getInteger());
@@ -83,4 +89,8 @@ void Interface::_refreshRegisterWindow(){
 	mvwprintw(_reg_win, 21, 1, "CD: 0x%08X", _processor.getRegister(Processor::RT_CDR).getInteger());
 	mvwprintw(_reg_win, 22, 1, "PT: 0x%08X", _processor.getRegister(Processor::RT_PTR).getInteger());
 	wrefresh(_reg_win);
+}
+
+void Interface::_refreshDisplayWindow() const{
+	wrefresh(_display_win);
 }

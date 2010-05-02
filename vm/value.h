@@ -14,7 +14,7 @@ namespace VM{
 	class Value{
 		public:
 			Value(int def = 0);
-			// Ascii values 0A0B0C0D0E0F101A (16 bytes)
+			// Ascii values 0x0A0B0C0D (4 bytes)
 			Value(const std::string &val, bool realvalue = false);
 			virtual ~Value();
 

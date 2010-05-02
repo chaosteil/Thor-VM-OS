@@ -19,10 +19,23 @@ using namespace Thor::VM;
  * P U B L I C   M E T H O D S
  * ============================================================================*/
 
-Processor::Processor(){
+Processor::Processor(Memory &memory)
+	: _memory(memory)
+{
 }
 
 Processor::~Processor(){
+}
+
+void Processor::cycle(){
+	Value word = _getCommand();
+
+	if(_parseCommand(word)){
+		dec(RT_IP);
+	}else{
+	}
+
+	dec(RT_IP);
 }
 
 void Processor::setRegister(RegType type, const Value &value){
@@ -140,4 +153,42 @@ void Processor::_opBlockOut(const Value &z, OpType op, RegType left, RegType rig
 	}else if(op == OT_Registers){
 		setRegister(left, z);
 	}
+}
+
+Processor::OpType Processor::_getOpType(char op) const{
+	if(op == 'D')
+		return OT_Direct;
+	else if(op == '>')
+		return OT_In;
+	else if(op == '<')
+		return OT_Out;
+	else if(op == 'R')
+		return OT_Registers;
+	else
+		return OT_None;
+}
+
+Value Processor::_getCommand() const{
+	Value address = _translatePage(getRegister(RT_CS).getInteger() + (getRegister(RT_IP).getInteger() >> 16));
+	Value command(address.getInteger() + (getRegister(RT_IP).getInteger() & 0xFF));
+
+	return _memory.getFromAddress(command.getInteger()*THOR_BYTES);
+}
+
+Value Processor::_translatePage(const Value &pageaddress) const{
+	Value ptr = getRegister(RT_PTR);
+	Value address(ptr.getInteger() + pageaddress.getInteger());
+
+	return _memory.getFromAddress(address.getInteger()*THOR_BYTES);
+}
+
+bool Processor::_parseCommand(const Value &word) const{
+	std::string cmd(word.getRepresentation(), 4);
+
+	if(cmd[0] == '+'){
+		OpType op = _getOpType(cmd[1]);
+		return true;
+	}
+
+	return false;
 }

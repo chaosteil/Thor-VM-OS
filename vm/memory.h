@@ -9,11 +9,11 @@ namespace VM{
 
 class Memory{
 	public:
-		Memory(const int size, const char *init = "");
+		Memory(const int size, const char *init = "", int initsize = 0);
 		virtual ~Memory();
 
-		const Value getAddress(const Value &address) const;
-		void setAddress(const Value &address, const Value &value);
+		const Value getFromAddress(const Value &address) const;
+		void setToAddress(const Value &address, const Value &value);
 
 	private:
 		const int _size;

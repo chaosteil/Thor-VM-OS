@@ -22,39 +22,17 @@ using namespace Thor::VM;
  * ============================================================================*/
 
 int main(int argc, const char *argv[]){
-	/*Processor *proc = new Processor();
+	Memory mem(16*1024*1024, "\0\0\0\0+DAX00000010", 16);
+	Processor *proc = new Processor(mem);
 	Interface interface(*proc);
+	proc->setRegister(Processor::RT_IP, 1);
+	proc->add(Processor::OT_Direct, Processor::RT_AX, Processor::RT_None, 0, 0xFFFFFFFF);
 
-	getch();
-
-	Value v;
-	for(int i = 0; i < THOR_BITS; i++){
-		v.setBit(i, 1);
-		proc->setRegister(Processor::RT_AX, v);
+	while(42){
+		interface.refreshUI();
+		proc->cycle();
+		getch();
 	}
-
-	Value x("0a0b0c0d");
-	proc->setRegister(Processor::RT_BX, x);
-
-	Value y(1);
-	proc->setRegister(Processor::RT_CX, y);
-
-	proc->add(Processor::OT_Registers, Processor::RT_BX, Processor::RT_CX);
-	proc->sub(Processor::OT_Registers, Processor::RT_BX, Processor::RT_CX);
-
-	interface.refreshUI();
-	interface.refreshUI();*/
-
-	Memory mem(256, " !\"#");
-	std::cout << std::hex << mem.getAddress(Value(0)).getInteger() << std::endl;
-	mem.setAddress(Value(4),Value(0x123456));
-	std::cout << mem.getAddress(Value(4)).getInteger() << std::endl;
-	char *temp = new char[5];
-	Value val = Value(0x20212223);
-	memcpy(temp, val.getRepresentation(), 4);
-	temp[5] = 0;
-	std::cout << temp << std::endl;
-
-	getch();
+	
 	return 0;
 }

@@ -2,8 +2,10 @@
 #define _THOR_VM_INTERFACE_H_
 
 #include <ncurses.h>
+#include <string>
 
 #include "processor.h"
+#include "memory.h"
 
 namespace Thor{
 namespace VM{
@@ -14,14 +16,18 @@ namespace VM{
 			virtual ~Interface();
 			
 			void refreshUI();
-		private:
-			WINDOW *_createWindow(const char *title, int width, int height, int posx, int posy) const;
-			void _deleteWindow(WINDOW *win);
 
-			void _refreshRegisterWindow();
+		private:
+			WINDOW *_createWindow(const std::string &title, int width, int height, int posx, int posy) const;
+			void _setTitle(WINDOW *win, const std::string &title) const;
+			void _deleteWindow(WINDOW *win) const;
+
+			void _refreshRegisterWindow() const;
+			void _refreshDisplayWindow() const;
+
 			Processor &_processor;
 
-			WINDOW *_reg_win;
+			WINDOW *_reg_win, *_display_win;
 	};
 
 }
