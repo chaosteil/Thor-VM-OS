@@ -15,7 +15,7 @@ namespace VM{
 		public:
 			Value(int def = 0);
 			// Ascii values 0A0B0C0D0E0F101A (16 bytes)
-			Value(const std::string &val);
+			Value(const std::string &val, bool realvalue = false);
 			virtual ~Value();
 
 			void setBit(unsigned int pos, char bit);

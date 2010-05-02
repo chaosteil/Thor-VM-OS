@@ -53,6 +53,14 @@ void Processor::sub(OpType op, RegType left, RegType right, const Value &vleft, 
 	_opBlockOut(z, op, left, right, vleft, vright);
 }
 
+void Processor::cmp(OpType op, RegType left, RegType right, const Value &vleft, const Value &vright){
+	Value x, y, z;
+
+	_opBlockIn(x, y, op, left, right, vleft, vright);
+
+	z.setInteger(x.getInteger() - y.getInteger());
+}
+
 void Processor::inc(RegType reg){
 	setRegister(reg, getRegister(reg).getInteger() + 1);
 }
@@ -99,6 +107,9 @@ void Processor::mov(OpType op, RegType left, RegType right, const Value &vleft, 
 	z.setInteger(y.getInteger());
 
 	_opBlockOut(z, op, left, right, vleft, vright);
+}
+
+void Processor::nop(){
 }
 
 /* ============================================================================

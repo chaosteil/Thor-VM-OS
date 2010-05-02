@@ -25,12 +25,18 @@ Value::Value(int def){
 	setInteger(def);
 }
 
-Value::Value(const std::string &val){
-	for(int i = 0; i < THOR_BYTES; i++){
-		int low = _convertFromAscii(val[i*2 +1]),
-			high = _convertFromAscii(val[i*2]);
+Value::Value(const std::string &val, bool realvalue){
+	if(realvalue){
+		for(int i = 0; i < THOR_BYTES; i++){
+			_value[i] = val[i];
+		}
+	}else{
+		for(int i = 0; i < THOR_BYTES; i++){
+			int low = _convertFromAscii(val[i*2 +1]),
+				high = _convertFromAscii(val[i*2]);
 
-		_value[i] = ((high << 4) | low);
+			_value[i] = ((high << 4) | low);
+		}
 	}
 }
 

@@ -30,6 +30,7 @@ namespace VM{
 
 			void add(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 			void sub(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
+			void cmp(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 
 			void andOp(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
 			void orOp(OpType op, RegType left, RegType right, const Value &vleft = Value(0), const Value &vright = Value(0));
@@ -39,6 +40,7 @@ namespace VM{
 
 			void inc(RegType reg);
 			void dec(RegType reg);
+			void nop();
 
 		private:
 			void _opBlockIn(Value &x, Value &y, OpType op, RegType left, RegType right, const Value &vleft, const Value &vright);
